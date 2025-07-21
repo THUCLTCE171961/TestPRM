@@ -10,17 +10,26 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BottomNavigationView bottomNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(navListener);
 
-        // Hiển thị fragment mặc định khi mở app
+        // Check if a specific fragment was requested
+        String requestedFragment = getIntent().getStringExtra("FRAGMENT");
         if (savedInstanceState == null) {
-            loadFragment(new HomeFragment());
+            if ("orders".equals(requestedFragment)) {
+                loadFragment(new OrderFragment());
+                bottomNav.setSelectedItemId(R.id.nav_orders);
+            } else {
+                loadFragment(new HomeFragment());
+                bottomNav.setSelectedItemId(R.id.nav_home);
+            }
         }
     }
 

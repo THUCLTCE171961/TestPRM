@@ -129,13 +129,23 @@ public class CartFragment extends Fragment {
                 }
                 order.setTotalAmount(total);
 
+                // Get user's address for shipping
+                String shippingAddress = ""; // Will be loaded from user profile
+                
                 // Thêm order vào DB
                 orderViewModel.createOrder(order, orderItems);
 
                 // Xoá giỏ hàng
                 cartViewModel.clearCart(sessionManager.getUserId());
 
-                Toast.makeText(getContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                // Navigate to Order Success Activity
+                android.content.Intent intent = new android.content.Intent(getActivity(), OrderSuccessActivity.class);
+                intent.putExtra(OrderSuccessActivity.EXTRA_ORDER_ID, System.currentTimeMillis() % 100000); // Generate temporary ID
+                intent.putExtra(OrderSuccessActivity.EXTRA_TOTAL_AMOUNT, total);
+                intent.putExtra(OrderSuccessActivity.EXTRA_SHIPPING_ADDRESS, shippingAddress);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getContext(), "Giỏ hàng trống!", Toast.LENGTH_SHORT).show();
             }
         });
     }
