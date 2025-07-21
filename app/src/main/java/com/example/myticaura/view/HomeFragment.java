@@ -65,14 +65,14 @@ public class HomeFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
+                if (TextUtils.isEmpty(newText.trim())) {
                     // Nếu ô tìm kiếm trống, hiển thị tất cả sản phẩm
                     productViewModel.getAllProducts().observe(getViewLifecycleOwner(), products -> {
                         adapter.submitList(products);
                     });
                 } else {
                     // Tìm kiếm sản phẩm theo từ khóa
-                    productViewModel.searchProducts(newText).observe(getViewLifecycleOwner(), products -> {
+                    productViewModel.searchProducts(newText.trim()).observe(getViewLifecycleOwner(), products -> {
                         adapter.submitList(products);
                     });
                 }
