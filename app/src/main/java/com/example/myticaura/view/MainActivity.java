@@ -10,35 +10,46 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BottomNavigationView bottomNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(navListener);
 
-        // Hiển thị fragment mặc định khi mở app
+        // Nếu có intent truyền tên fragment thì ưu tiên load
+        String requestedFragment = getIntent().getStringExtra("FRAGMENT");
         if (savedInstanceState == null) {
-            loadFragment(new HomeFragment());
+            if ("orders".equals(requestedFragment)) {
+                loadFragment(new OrderFragment());
+                bottomNav.setSelectedItemId(R.id.nav_orders);
+            } else {
+                loadFragment(new HomeFragment());
+                bottomNav.setSelectedItemId(R.id.nav_home);
+            }
         }
     }
 
     private final BottomNavigationView.OnItemSelectedListener navListener =
             item -> {
                 Fragment selectedFragment = null;
-                int itemId = item.getItemId();
-
-                if (itemId == R.id.nav_home) {
-                    selectedFragment = new HomeFragment();
-                } else if (itemId == R.id.nav_cart) {
-                    selectedFragment = new CartFragment();
-                } else if (itemId == R.id.nav_orders) {
-                    selectedFragment = new OrderFragment();
-                } else if (itemId == R.id.nav_profile) {
-                    selectedFragment = new ProfileFragment();
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case R.id.nav_cart:
+                        selectedFragment = new CartFragment();
+                        break;
+                    case R.id.nav_orders:
+                        selectedFragment = new OrderFragment();
+                        break;
+                    case R.id.nav_profile:
+                        selectedFragment = new ProfileFragment();
+                        break;
                 }
-
                 if (selectedFragment != null) {
                     loadFragment(selectedFragment);
                     return true;
@@ -47,10 +58,9 @@ public class MainActivity extends AppCompatActivity {
             };
 
     private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
+        getSupportFragmentManager()
+                .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
 }
-
-

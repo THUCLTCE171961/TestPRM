@@ -119,7 +119,7 @@ public class CartFragment extends Fragment {
                 double total = 0;
                 List<OrderItem> orderItems = new ArrayList<>();
 
-                for(var item : cartWithItems.items) {
+                for (var item : cartWithItems.items) {
                     total += item.product.getPrice() * item.cartItem.getQuantity();
                     OrderItem orderItem = new OrderItem();
                     orderItem.setProductId(item.product.getProductId());
@@ -129,13 +129,23 @@ public class CartFragment extends Fragment {
                 }
                 order.setTotalAmount(total);
 
+                // Lấy địa chỉ giao hàng (nếu bạn đã có logic lấy từ hồ sơ người dùng thì dùng ở đây)
+                String shippingAddress = ""; // Placeholder
+
                 // Thêm order vào DB
                 orderViewModel.createOrder(order, orderItems);
 
                 // Xoá giỏ hàng
                 cartViewModel.clearCart(sessionManager.getUserId());
 
-                Toast.makeText(getContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                // Chuyển sang màn hình thành công
+                android.content.Intent intent = new android.content.Intent(getActivity(), OrderSuccessActivity.class);
+                intent.putExtra(OrderSuccessActivity.EXTRA_ORDER_ID, System.currentTimeMillis() % 100000); // Tạm thời tạo ID
+                intent.putExtra(OrderSuccessActivity.EXTRA_TOTAL_AMOUNT, total);
+                intent.putExtra(OrderSuccessActivity.EXTRA_SHIPPING_ADDRESS, shippingAddress);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getContext(), "Giỏ hàng trống!", Toast.LENGTH_SHORT).show();
             }
         });
     }

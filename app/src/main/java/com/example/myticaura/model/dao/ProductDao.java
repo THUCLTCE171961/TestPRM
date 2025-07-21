@@ -22,5 +22,8 @@ public interface ProductDao {
     @Query("SELECT * FROM products WHERE category_id = :categoryId")
     LiveData<List<Product>> getProductsByCategory(int categoryId);
 
+    @Query("SELECT * FROM products WHERE name LIKE '%' || :searchQuery || '%' OR description LIKE '%' || :searchQuery || '%'")
+    LiveData<List<Product>> searchProducts(String searchQuery);
 }
+
 

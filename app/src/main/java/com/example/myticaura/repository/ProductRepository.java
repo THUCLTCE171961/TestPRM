@@ -33,10 +33,13 @@ public class ProductRepository {
         return productDao.getProductsByCategory(categoryId);
     }
 
+    public LiveData<List<Product>> searchProducts(String searchQuery) {
+        return productDao.searchProducts(searchQuery);
+    }
+
     public void insert(Product... products) {
         executorService.execute(() -> productDao.insertAll(products));
     }
-
 }
 
 

@@ -30,8 +30,11 @@ public class ProductViewModel extends AndroidViewModel {
         return productRepository.getProductsByCategory(categoryId);
     }
 
+    public LiveData<List<Product>> searchProducts(String searchQuery) {
+        return productRepository.searchProducts(searchQuery);
+    }
+
     public void insert(Product... products) {
         productRepository.insert(products);
     }
-
 }
