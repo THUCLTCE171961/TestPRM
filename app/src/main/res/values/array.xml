@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="price_filter_options">
+    <item>All Prices</item>
+    <item>Dưới 100,000đ</item>
+    <item>100,000đ - 500,000đ</item>
+    <item>Trên 500,000đ</item>
+</string-array>
+</resources>

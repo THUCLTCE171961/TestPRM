@@ -1,4 +1,4 @@
-package com.example.mytic_aura.view.fragments;
+package com.example.myticaura.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

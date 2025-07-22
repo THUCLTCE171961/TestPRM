@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.mytic_aura.view.fragments.MapsFragment;
+import com.example.myticaura.view.MapsFragment;
 import com.example.myticaura.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new CartFragment();
                 } else if (id == R.id.nav_orders) {
                     selectedFragment = new OrderFragment();
-                } else if (id == R.id.nav_profile) {z
+                } else if (id == R.id.nav_profile) {
                     selectedFragment = new ProfileFragment();
                 }
                 else if (id == R.id.nav_map) {
