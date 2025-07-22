@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.mytic_aura.view.fragments.MapsFragment;
 import com.example.myticaura.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,19 +37,18 @@ public class MainActivity extends AppCompatActivity {
     private final BottomNavigationView.OnItemSelectedListener navListener =
             item -> {
                 Fragment selectedFragment = null;
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        selectedFragment = new HomeFragment();
-                        break;
-                    case R.id.nav_cart:
-                        selectedFragment = new CartFragment();
-                        break;
-                    case R.id.nav_orders:
-                        selectedFragment = new OrderFragment();
-                        break;
-                    case R.id.nav_profile:
-                        selectedFragment = new ProfileFragment();
-                        break;
+                int id = item.getItemId();
+                if (id == R.id.nav_home) {
+                    selectedFragment = new HomeFragment();
+                } else if (id == R.id.nav_cart) {
+                    selectedFragment = new CartFragment();
+                } else if (id == R.id.nav_orders) {
+                    selectedFragment = new OrderFragment();
+                } else if (id == R.id.nav_profile) {z
+                    selectedFragment = new ProfileFragment();
+                }
+                else if (id == R.id.nav_map) {
+                    selectedFragment = new MapsFragment();
                 }
                 if (selectedFragment != null) {
                     loadFragment(selectedFragment);

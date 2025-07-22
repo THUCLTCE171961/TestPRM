@@ -1,28 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
+    <!-- Thanh tìm kiếm -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_alignParentTop="true"
         android:background="@drawable/search_view_background"
-        android:iconifiedByDefault="false"
-        android:queryHint="Tìm kiếm sản phẩm..." />
+        android:queryHint="Tìm kiếm sản phẩm..."
+        android:iconifiedByDefault="false" />
 
+    <!-- Khu vực Lọc -->
+    <LinearLayout
+        android:id="@+id/filter_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_view"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Spinner
+            android:id="@+id/spinner_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"/>
+
+        <EditText
+            android:id="@+id/et_min_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Min"
+            android:textSize="14sp"
+            android:inputType="numberDecimal"
+            android:layout_marginEnd="8dp"/>
+
+        <EditText
+            android:id="@+id/et_max_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Max"
+            android:textSize="14sp"
+            android:inputType="numberDecimal"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btn_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lọc"/>
+    </LinearLayout>
+
+    <!-- Danh sách sản phẩm -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_products"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/filter_section"
+        android:layout_marginTop="8dp"
+        android:padding="4dp" />
+
+    <!-- Vòng xoay chờ tải -->
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_below="@id/search_view" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_products"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/search_view"
-        android:padding="4dp" />
+        android:visibility="gone" />
 
 </RelativeLayout>
+
+

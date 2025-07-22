@@ -13,16 +13,22 @@ import com.bumptech.glide.Glide;
 import com.example.myticaura.R;
 import com.example.myticaura.model.entity.Product;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 public class ProductAdapter extends ListAdapter<Product, ProductAdapter.ProductViewHolder> {
 
     private OnItemClickListener listener;
-
+    private List<Product> productList;
     public ProductAdapter() {
         super(DIFF_CALLBACK);
     }
-
+    public void filterList(List<Product> filteredList) {
+        // Gán lại productList bằng danh sách đã được lọc
+        this.productList = filteredList;
+        // Thông báo cho adapter rằng dữ liệu đã thay đổi để nó vẽ lại UI
+        notifyDataSetChanged();
+    }
     private static final DiffUtil.ItemCallback<Product> DIFF_CALLBACK = new DiffUtil.ItemCallback<Product>() {
         @Override
         public boolean areItemsTheSame(@NonNull Product oldItem, @NonNull Product newItem) {

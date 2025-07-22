@@ -40,6 +40,14 @@ public class ProductRepository {
     public void insert(Product... products) {
         executorService.execute(() -> productDao.insertAll(products));
     }
+    public LiveData<List<Product>> getFilteredProducts(String query, Integer categoryId, Double minPrice, Double maxPrice) {
+        // Xử lý chuỗi query để đảm bảo nó không null và thêm ký tự wildcard
+        String processedQuery = (query == null || query.isEmpty()) ? null : "%" + query + "%";
+        return productDao.getFilteredProducts(processedQuery, categoryId, minPrice, maxPrice);
+    }
+
+
+
 }
 
 
